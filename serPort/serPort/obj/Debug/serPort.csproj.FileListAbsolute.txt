@@ -1,0 +1,22 @@
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\bin\Debug\serPort.exe.config
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\bin\Debug\serPort.exe
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\bin\Debug\serPort.pdb
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.Properties.Resources.resources
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csproj.GenerateResource.cache
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csproj.CoreCompileInputs.cache
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.exe
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.pdb
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.MainForm.resources
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csproj.ResolveComReference.cache
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csprojResolveAssemblyReference.cache
+C:\serPort\serPort\bin\Debug\serPort.exe.config
+C:\serPort\serPort\bin\Debug\serPort.exe
+C:\serPort\serPort\bin\Debug\serPort.pdb
+C:\serPort\serPort\obj\Debug\serPort.csproj.ResolveComReference.cache
+C:\serPort\serPort\obj\Debug\serPort.MainForm.resources
+C:\serPort\serPort\obj\Debug\serPort.Properties.Resources.resources
+C:\serPort\serPort\obj\Debug\serPort.Settings.resources
+C:\serPort\serPort\obj\Debug\serPort.csproj.GenerateResource.cache
+C:\serPort\serPort\obj\Debug\serPort.csproj.CoreCompileInputs.cache
+C:\serPort\serPort\obj\Debug\serPort.exe
+C:\serPort\serPort\obj\Debug\serPort.pdb
