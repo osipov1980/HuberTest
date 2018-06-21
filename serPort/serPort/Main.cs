@@ -481,6 +481,9 @@ namespace serPort
             int converted_2_int_increased_temperature = Int32.Parse(increased_temperature);
             huber_dec_value_lbl.Text = converted_2_int_increased_temperature.ToString();                               /////////////////////////////////////////////////Do it not visible//////////////////////////
             increased_temperature = converted_2_int_increased_temperature.ToString("X");
+            //add zeros from left if HEX number less than 4. Example: F2A, A9, BC3, 5
+            //It must be 4 HEX numbers, like A2B8, 11D5
+            increased_temperature = addZeros2HexNumberFromLeft(increased_temperature);
             huber_hex_value_lbl.Text = increased_temperature;                                                          /////////////////////////////////////////////////Do it not visible//////////////////////////
 
             if (HuberPort.IsOpen == false) HuberPort.Open();
@@ -492,6 +495,16 @@ namespace serPort
             if (HuberPort.IsOpen) HuberPort.Write("{M00"+ increased_temperature + "\r\n");       //send SetPoint temperature to Huber for next second
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
             HuberPort.Close();
+        }
+
+        //Huber add zeros from left to final sending string
+        private string addZeros2HexNumberFromLeft (string increased_temperature)
+        {
+            while (increased_temperature.Length < 4)
+            {
+                increased_temperature = "0" + increased_temperature;
+            }
+            return increased_temperature;
         }
 
         //Huber
