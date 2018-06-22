@@ -48,6 +48,7 @@ namespace serPort
             newForm.Controls.Add(sto_height_captured_lbl);
 
             newForm.Show();
+            newForm.Visible = false;
 
             Mitutoyo1Port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(port_DataReceived);
         }

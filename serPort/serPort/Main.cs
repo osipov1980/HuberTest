@@ -64,8 +64,8 @@ namespace serPort
                 initializeComPortsName();
                 huberStart();                      
                 //Read first time height from Mitutoyo
-                //mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
-                //updateMitutoyoLables();                                        
+                mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
+                updateMitutoyoLables();                                        
                 //Start reading data from Mitutoyo and Huber by timer
                 //openExistingExcelTemplate();                                     /////////////////////////////////////////////////
                 readTimer.Start();
@@ -233,7 +233,7 @@ namespace serPort
             }
 
             //Read actual temperature
-            //huberReadTemperature();
+            huberReadTemperature();
 
             //Call function from Class - Read height from Mitutoyo
             mitutoyo_1.startReadMitutoyo();
@@ -405,7 +405,6 @@ namespace serPort
 
             if (HuberPort.IsOpen) HuberPort.Write("{M140000\r\n");       //Stop Huber
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            HuberPort.Close();
         }
 
         //Huber
@@ -520,7 +519,6 @@ namespace serPort
 
             if (HuberPort.IsOpen) HuberPort.Write("{M01****\r\n");       //read actual temperature from Huber
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            HuberPort.Close();
         }
 
         //Huber
