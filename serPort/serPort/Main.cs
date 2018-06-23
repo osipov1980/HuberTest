@@ -211,6 +211,7 @@ namespace serPort
         {
             //Huber
             updateHuberTargetTemperature();
+            HuberPort.Close();
 
             //check if user changed data resolution
             if (resolution2PrintExcelData == -2)
@@ -486,8 +487,9 @@ namespace serPort
             huber_hex_value_lbl.Text = increased_temperature;                                                          /////////////////////////////////////////////////Do it not visible//////////////////////////
 
             if (HuberPort.IsOpen == false) HuberPort.Open();
-            if (HuberPort.BytesToWrite > 0)
+            if (HuberPort.BytesToRead > 0)
             {
+                HuberPort.DiscardInBuffer();
                 HuberPort.DiscardOutBuffer();
             }
 
