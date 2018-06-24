@@ -21,10 +21,10 @@ namespace serPort
         //for BeginInvoke Method in "startReadMitutoyo()"
         Form newForm = new Form();
         Label mitutoyo_1_raw_value_lbl = new Label(); 
-        Label mitutoyo_1_actual_value_lbl = new Label();
+        public Label mitutoyo_1_actual_value_lbl = new Label();
         Label sto_lbl = new Label();
         Label sto_height_captured_lbl = new Label();
-        float mitutoyoValueForExcel;
+        public float mitutoyoValueForExcel;
         string temperature2Print;
 
         SerialPort Mitutoyo1Port = new SerialPort();

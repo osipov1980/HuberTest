@@ -39,7 +39,7 @@ namespace serPort
         int ROW;
         int oneMinuteCounter;    //counter for Excel input data 1(time)/1(minute)
         int twoMinuteCounter;    //counter for Excel input data 1(time)/2(minute)
-        public static float mitutoyoValueForExcel;
+        //public static float mitutoyoValueForExcel;                                                  ///////////////////////////////////delete////////////////////////////////
         float huberValueForExcel;
         int xlxsCopiesCounter;   //this variable will be used for creating of temporary copies of Excel documents durring the check running
         int resolution2PrintExcelData;      //how many times to write data to Excel per minute
@@ -68,7 +68,7 @@ namespace serPort
                 mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
                 updateMitutoyoLables();                                        
                 //Start reading data from Mitutoyo and Huber by timer
-                //openExistingExcelTemplate();                                     /////////////////////////////////////////////////
+                openExistingExcelTemplate();                                     /////////////////////////////////////////////////
                 readTimer.Start();
             }
             else
@@ -78,7 +78,7 @@ namespace serPort
                 mitutoyo_1.closePort(1);
                 huberStop();
                 HuberPort.Close();
-                //saveCloseExcelWorkbook();                                         ///////////////////////////////////////////////////
+                saveCloseExcelWorkbook();                                         ///////////////////////////////////////////////////
             }
         }
 
@@ -296,14 +296,14 @@ namespace serPort
                 {
                     if (sumOfProgramRunningTicks == upperCheckLimit)    //condition for printing upper limit line in Excel 
                     {
-                        //writeData2Excel();                                       //////////////////////////////////////////////////
-                        //drawRedLimitForFullTestExcel();                          //////////////////////////////////////////////////
-                        //writeData2Excel();                                       //////////////////////////////////////////////////
+                        writeData2Excel();                                       
+                        drawRedLimitForFullTestExcel();                          
+                        writeData2Excel();                                       
                         oneMinuteCounter = 0;      //reset value for next cycle
                     }
                     else
                     {
-                        //writeData2Excel();                                        //////////////////////////////////////////////////
+                        writeData2Excel();                                        
                         oneMinuteCounter = 0;      //reset value for next cycle
                     }
                 }
@@ -312,7 +312,7 @@ namespace serPort
             {
                 if (oneMinuteCounter == 60)
                 {
-                    //writeData2Excel();                                             //////////////////////////////////////////////////
+                    writeData2Excel();                                             
                     oneMinuteCounter = 0;      //reset value for next cycle
                 }
             }
@@ -390,7 +390,7 @@ namespace serPort
         //Mitutoyo
         private void updateMitutoyoLables()
         {
-            mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_1_actual_value;
+            mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_1_actual_value_lbl.Text;
         }
 
         //Huber
@@ -628,7 +628,7 @@ namespace serPort
                 if (temperature2Print_f >= mitutoyo_1.str)
                 {
                     //mitutoyo height value at the Str moment
-                    str_lbl.Text = mitutoyoValueForExcel.ToString();
+                    str_lbl.Text = mitutoyo_1.mitutoyoValueForExcel.ToString();
                 }
             }
         }
@@ -671,7 +671,7 @@ namespace serPort
         {
             actualSheet.Cells[ROW, 1] = huberValueForExcel;           //A1  temperature/minute
             //convert only mitutoyo value to float
-            actualSheet.Cells[ROW, 2] = mitutoyoValueForExcel;        //B1  mitutoyo height/minute   
+            actualSheet.Cells[ROW, 2] = mitutoyo_1.mitutoyoValueForExcel;        //B1  mitutoyo height/minute   
             ROW++;
         }
 
