@@ -19,6 +19,7 @@ namespace serPort
         int secondsToEnd;
         int flagToPrintSecondsToEnd;
         //Huber
+        string huberReadWriteFlag;
         public static string temperature2Print;
         string InputDataHuber = String.Empty;
         delegate void SetTextCallbackHuber(string text);
@@ -204,14 +205,25 @@ namespace serPort
             }
 
             decimal_part_of_target = 0;
+            huberReadWriteFlag = "sendSetPoint";
         }
 
         //Timer Ticks
         private void readTimer_Tick(object sender, EventArgs e)
         {
             //Huber
-            updateHuberTargetTemperature();
-            HuberPort.Close();
+            if (huberReadWriteFlag == "readActualTemperature")
+            {
+                
+                huberReadTemperature();
+                huberReadWriteFlag = "sendSetPoint";
+            }
+            else
+            {
+                if (HuberPort.IsOpen == false) HuberPort.Open();
+                updateHuberTargetTemperature();
+                huberReadWriteFlag = "readActualTemperature";
+            }            
 
             //check if user changed data resolution
             if (resolution2PrintExcelData == -2)
@@ -234,7 +246,7 @@ namespace serPort
             }
 
             //Read actual temperature
-            huberReadTemperature();
+            //huberReadTemperature();
 
             //Call function from Class - Read height from Mitutoyo
             mitutoyo_1.startReadMitutoyo();
@@ -486,7 +498,7 @@ namespace serPort
             increased_temperature = addZeros2HexNumberFromLeft(increased_temperature);
             huber_hex_value_lbl.Text = increased_temperature;                                                          /////////////////////////////////////////////////Do it not visible//////////////////////////
 
-            if (HuberPort.IsOpen == false) HuberPort.Open();
+            //if (HuberPort.IsOpen == false) HuberPort.Open();
             if (HuberPort.BytesToRead > 0)
             {
                 HuberPort.DiscardInBuffer();

@@ -20,3 +20,4 @@ C:\serPort\serPort\obj\Debug\serPort.csproj.GenerateResource.cache
 C:\serPort\serPort\obj\Debug\serPort.csproj.CoreCompileInputs.cache
 C:\serPort\serPort\obj\Debug\serPort.exe
 C:\serPort\serPort\obj\Debug\serPort.pdb
+C:\serPort\serPort\obj\Debug\serPort.csprojAssemblyReference.cache
