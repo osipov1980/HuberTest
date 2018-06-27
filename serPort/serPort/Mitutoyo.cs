@@ -13,31 +13,31 @@ namespace serPort
 {
     public partial class Mitutoyo
     {
-        string InputData = String.Empty;           
-        public string rate;
-        public float sto;
-        public float str;
-        public string mitutoyo_1_actual_value;
+        string InputData = String.Empty;                          /////////////////////////
+        //public string rate;                                     ///////////////////delete
+        public float sto;                                         //initialized from Main (need refactoring)
+        //public float str;
+        public string mitutoyo_actual_value;
         //for BeginInvoke Method in "startReadMitutoyo()"
         Form newForm = new Form();
-        Label mitutoyo_1_raw_value_lbl = new Label(); 
-        public Label mitutoyo_1_actual_value_lbl = new Label();
-        Label sto_lbl = new Label();
-        Label sto_height_captured_lbl = new Label();
+        Label mitutoyo_raw_value_lbl = new Label(); 
+        public Label mitutoyo_actual_value_lbl = new Label();
+        public Label sto_lbl = new Label();
+        public Label sto_height_captured_lbl = new Label();
         public float mitutoyoValueForExcel;
-        string temperature2Print;
 
         SerialPort Mitutoyo1Port = new SerialPort();
         public delegate void SetTextCallback(string text);
 
+        //Constructor
         public Mitutoyo()
         {                  
-            mitutoyo_1_raw_value_lbl.Text = "";
-            newForm.Controls.Add(mitutoyo_1_raw_value_lbl);
+            mitutoyo_raw_value_lbl.Text = "";
+            newForm.Controls.Add(mitutoyo_raw_value_lbl);
             
-            mitutoyo_1_actual_value_lbl.Text = "";
-            mitutoyo_1_actual_value_lbl.Top = 25;   //20 pixels down from the previous label
-            newForm.Controls.Add(mitutoyo_1_actual_value_lbl);
+            mitutoyo_actual_value_lbl.Text = "";
+            mitutoyo_actual_value_lbl.Top = 25;   //20 pixels down from the previous label
+            newForm.Controls.Add(mitutoyo_actual_value_lbl);
             
             sto_lbl.Text = "";
             sto_lbl.Top = 50;
@@ -92,8 +92,8 @@ namespace serPort
                 Mitutoyo1Port.DiscardOutBuffer();
                 //Mitutoyo1Port.ReadExisting();  ------>   another option by Sharon to clean the buffer
             }
-            mitutoyo_1_raw_value_lbl.Text = "";
-            mitutoyo_1_actual_value_lbl.Text = "";
+            mitutoyo_raw_value_lbl.Text = "";
+            mitutoyo_actual_value_lbl.Text = "";
 
             if (Mitutoyo1Port.IsOpen) Mitutoyo1Port.WriteLine("1\r\n");
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -104,17 +104,17 @@ namespace serPort
             InputData = Mitutoyo1Port.ReadExisting();
             //refresh the rawData
             if (InputData != String.Empty)
-                mitutoyo_1_raw_value_lbl.BeginInvoke(new SetTextCallback(SetText), new object[] { InputData });            
+                mitutoyo_raw_value_lbl.BeginInvoke(new SetTextCallback(SetText), new object[] { InputData });            
         }
 
         public void SetText(string value)
         {
-            mitutoyo_1_raw_value_lbl.Text += value;       //put data into lable before copy to temporary variable
-            string rawData = mitutoyo_1_raw_value_lbl.Text;
+            mitutoyo_raw_value_lbl.Text += value;       //put data into lable before copy to temporary variable
+            string rawData = mitutoyo_raw_value_lbl.Text;
             rawData = rawData.Remove(0, 3);               //first cut 3 symbols from left
             rawData = rawData.Remove(1, 3);               //second cut symbols     
-            mitutoyo_1_actual_value_lbl.Text = rawData;   //output final data to mitutoyo_1_actual_value_lbl
-            mitutoyo_1_actual_value = rawData;
+            mitutoyo_actual_value_lbl.Text = rawData;   //output final data to mitutoyo_actual_value_lbl
+            mitutoyo_actual_value = rawData;
             mitutoyoValueForExcel = float.Parse(rawData);
 
             //check if Sto Lable is empty (if empty so Sto is did not find yet)
@@ -125,7 +125,7 @@ namespace serPort
                 if (actualStoValueToCheck >= sto)
                 {
                     //temperature value at the Sto moment
-                    sto_lbl.Text = temperature2Print;
+                    sto_lbl.Text = MainForm.temperature2Print;
                     sto_height_captured_lbl.Text = rawData;
                 }
             }

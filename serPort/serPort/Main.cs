@@ -16,6 +16,8 @@ namespace serPort
     {
         string reportName;
         int sumOfProgramRunningTicks;   //for calculate the sum of all ticks (example: 2 ticks/1 second. So 60*2 = ticks need for one minute) 
+        float str;
+        string rate;
         int secondsToEnd;
         int flagToPrintSecondsToEnd;
         //Huber
@@ -39,7 +41,6 @@ namespace serPort
         int ROW;
         int oneMinuteCounter;    //counter for Excel input data 1(time)/1(minute)
         int twoMinuteCounter;    //counter for Excel input data 1(time)/2(minute)
-        //public static float mitutoyoValueForExcel;                                                  ///////////////////////////////////delete////////////////////////////////
         float huberValueForExcel;
         int xlxsCopiesCounter;   //this variable will be used for creating of temporary copies of Excel documents durring the check running
         int resolution2PrintExcelData;      //how many times to write data to Excel per minute
@@ -68,7 +69,7 @@ namespace serPort
                 mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
                 updateMitutoyoLables();                                        
                 //Start reading data from Mitutoyo and Huber by timer
-                openExistingExcelTemplate();                                     /////////////////////////////////////////////////
+                openExistingExcelTemplate();                                     
                 readTimer.Start();
             }
             else
@@ -78,7 +79,7 @@ namespace serPort
                 mitutoyo_1.closePort(1);
                 huberStop();
                 HuberPort.Close();
-                saveCloseExcelWorkbook();                                         ///////////////////////////////////////////////////
+                saveCloseExcelWorkbook();                                         
             }
         }
 
@@ -125,18 +126,17 @@ namespace serPort
             }
 
             //Mitutoyo lables before BeginInvoke of Com Port
-            //mitutoyo_1_raw_value_lbl.Text = "";                                              /////////////////////////delete/////////////////
+           
             mitutoyo_1_actual_value_lbl.Text = "";
-            //mitutoyo_1_actual_value = "";                                                       /////////////////////////delete/////////////////
 
             //Huber
             prepareDataForHuber();
 
-            //Class var - initialise Sto ("0.1" is defined as default value)
+            //Mitutoyo Class variable - initialize Sto ("0.1" is defined as default value)
             mitutoyo_1.sto = float.Parse(sto_cmBox.Text);
 
-            //Class var - initialise Str
-            mitutoyo_1.str = float.Parse(str_cmBox.Text);
+            //Mitutoyo Class var - initialize Str
+            str = float.Parse(str_cmBox.Text);
 
             //initialise Rate ("1" is defined as default value)
             if (rate_cmBox.Text == "1")
@@ -153,8 +153,8 @@ namespace serPort
                 { sumOfProgramRunningTicks = sumOfProgramRunningTicks * 2 * 2; }
             }
 
-            //Class var - initialise rate
-            mitutoyo_1.rate = rate_cmBox.Text;
+            //initialise rate
+            rate = rate_cmBox.Text;
 
             //initialise sto_lbl
             sto_lbl.Text = "";
@@ -169,7 +169,7 @@ namespace serPort
             flagToPrintSecondsToEnd = 1;
 
             //initialise flag for print temperature value to Real Data Control once per 10 second
-            flagToPrintTemperatureToRealDataControl = 20;
+            flagToPrintTemperatureToRealDataControl = 5;
 
             //initialise every new run
             sto_height_captured_lbl.Text = "";
@@ -229,11 +229,11 @@ namespace serPort
             if (resolution2PrintExcelData == -2)
             {
                 //Write data to Excel workbook
-                if (mitutoyo_1.rate == "1")
+                if (rate == "1")
                 {
                     rate1();
                 }
-                else if (mitutoyo_1.rate == "2")
+                else if (rate == "2")
                 {
                     rate2();
                 }
@@ -390,7 +390,17 @@ namespace serPort
         //Mitutoyo
         private void updateMitutoyoLables()
         {
-            mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_1_actual_value_lbl.Text;
+            mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_actual_value;
+
+            if (mitutoyo_1.sto_lbl.Text != "")
+            {
+                sto_lbl.Text = mitutoyo_1.sto_lbl.Text;
+            }
+
+            if (mitutoyo_1.sto_height_captured_lbl.Text != "")
+            {
+                sto_height_captured_lbl.Text = mitutoyo_1.sto_height_captured_lbl.Text;
+            }
         }
 
         //Huber
@@ -476,7 +486,7 @@ namespace serPort
             }
 
             string increased_temperature;
-            //str_max_lbl.Text = decimal_part_of_target.ToString();                                        /////////////////////////////////////////////////to delete//////////////////////////
+            //some_label.Text = decimal_part_of_target.ToString();     
             if (decimal_part_of_target == 0)
             {
                 increased_temperature = low_temperature_increased.ToString() + "00";
@@ -609,7 +619,7 @@ namespace serPort
                 temperature2Print = temperature2Print.Insert(2, ".");  //add point to temperature value like: "37.65"   
             }
             //output final data to mitutoyo_1_actual_value_lbl
-            if (flagToPrintTemperatureToRealDataControl == 20)
+            if (flagToPrintTemperatureToRealDataControl == 5)
             {
                 actual_temperature_lbl.Text = "";
                 actual_temperature_lbl.Text = temperature2Print;      //print temperature value to real data control
@@ -625,7 +635,7 @@ namespace serPort
             {
                 //check if Str is now
                 float temperature2Print_f = float.Parse(temperature2Print);  //convert txt value of actual temperature to float for compare with target temperature
-                if (temperature2Print_f >= mitutoyo_1.str)
+                if (temperature2Print_f >= str)
                 {
                     //mitutoyo height value at the Str moment
                     str_lbl.Text = mitutoyo_1.mitutoyoValueForExcel.ToString();
@@ -642,7 +652,7 @@ namespace serPort
 
             //save Rate value
             actualSheet.Cells[3, 5] = "Rate:";
-            actualSheet.Cells[3, 6] = mitutoyo_1.rate;
+            actualSheet.Cells[3, 6] = rate;
 
             //save Str value
             actualSheet.Cells[4, 5] = "Str:";
@@ -687,16 +697,16 @@ namespace serPort
         private void saveCloseExcelWorkbook()
         {
             //save Sto value
-            //actualSheet.Cells[2, 5] = "Sto at:";                                                                        ///////////////////////////////////////////////////////////////////////////
-            //actualSheet.Cells[2, 6] = sto_lbl.Text;                                                                     ///////////////////////////////////////////////////////////////////////////
+            actualSheet.Cells[2, 5] = "Sto at:";                                                                        
+            actualSheet.Cells[2, 6] = sto_lbl.Text;                                                                     
 
             //save Rate value
-            //actualSheet.Cells[3, 5] = "Rate:";                                                                          ///////////////////////////////////////////////////////////////////////////
-            //actualSheet.Cells[3, 6] = mitutoyo_1.rate;                                                                  ///////////////////////////////////////////////////////////////////////////
+            actualSheet.Cells[3, 5] = "Rate:";                                                                          
+            actualSheet.Cells[3, 6] = rate;                                                                  
 
             //save Str value
-            //actualSheet.Cells[4, 5] = "Str:";                                                                           ///////////////////////////////////////////////////////////////////////////
-            //actualSheet.Cells[4, 6] = str_lbl.Text;                                                                     ///////////////////////////////////////////////////////////////////////////
+            actualSheet.Cells[4, 5] = "Str:";                                                                           
+            actualSheet.Cells[4, 6] = str_lbl.Text;                                                                     
 
 
             //After write the content to the cell, next step is to save the excel file in your system

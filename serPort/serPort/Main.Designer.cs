@@ -87,7 +87,7 @@
             // 
             this.start_stop_btn.BackColor = System.Drawing.Color.DarkTurquoise;
             this.start_stop_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.start_stop_btn.Location = new System.Drawing.Point(441, 522);
+            this.start_stop_btn.Location = new System.Drawing.Point(448, 521);
             this.start_stop_btn.Name = "start_stop_btn";
             this.start_stop_btn.Size = new System.Drawing.Size(190, 49);
             this.start_stop_btn.TabIndex = 6;
@@ -139,7 +139,7 @@
             this.create_temporary_xlxs_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.create_temporary_xlxs_btn.Image = ((System.Drawing.Image)(resources.GetObject("create_temporary_xlxs_btn.Image")));
             this.create_temporary_xlxs_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.create_temporary_xlxs_btn.Location = new System.Drawing.Point(468, 401);
+            this.create_temporary_xlxs_btn.Location = new System.Drawing.Point(468, 450);
             this.create_temporary_xlxs_btn.Name = "create_temporary_xlxs_btn";
             this.create_temporary_xlxs_btn.Size = new System.Drawing.Size(154, 32);
             this.create_temporary_xlxs_btn.TabIndex = 45;
@@ -303,7 +303,7 @@
             this.real_time_data_control_groupBox.ForeColor = System.Drawing.Color.GhostWhite;
             this.real_time_data_control_groupBox.Location = new System.Drawing.Point(396, 99);
             this.real_time_data_control_groupBox.Name = "real_time_data_control_groupBox";
-            this.real_time_data_control_groupBox.Size = new System.Drawing.Size(292, 274);
+            this.real_time_data_control_groupBox.Size = new System.Drawing.Size(292, 334);
             this.real_time_data_control_groupBox.TabIndex = 49;
             this.real_time_data_control_groupBox.TabStop = false;
             this.real_time_data_control_groupBox.Text = "Real Time Data Control";
@@ -945,6 +945,46 @@
             this.high_temperature_cmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.high_temperature_cmBox.FormattingEnabled = true;
             this.high_temperature_cmBox.Items.AddRange(new object[] {
+            "-50",
+            "-49",
+            "-48",
+            "-47",
+            "-46",
+            "-45",
+            "-44",
+            "-43",
+            "-42",
+            "-41",
+            "-40",
+            "-39",
+            "-38",
+            "-37",
+            "-36",
+            "-35",
+            "-34",
+            "-33",
+            "-32",
+            "-31",
+            "-30",
+            "-29",
+            "-28",
+            "-27",
+            "-26",
+            "-25",
+            "-24",
+            "-23",
+            "-22",
+            "-21",
+            "-20",
+            "-19",
+            "-18",
+            "-17",
+            "-16",
+            "-15",
+            "-14",
+            "-13",
+            "-12",
+            "-11",
             "-10",
             "-9",
             "-8",
@@ -1054,7 +1094,44 @@
             "96",
             "97",
             "98",
-            "99"});
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120",
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130",
+            "131",
+            "132",
+            "133",
+            "134",
+            "135",
+            "136"});
             this.high_temperature_cmBox.Location = new System.Drawing.Point(181, 67);
             this.high_temperature_cmBox.Name = "high_temperature_cmBox";
             this.high_temperature_cmBox.Size = new System.Drawing.Size(86, 28);
@@ -1067,6 +1144,46 @@
             this.low_temperature_cmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.low_temperature_cmBox.FormattingEnabled = true;
             this.low_temperature_cmBox.Items.AddRange(new object[] {
+            "-50",
+            "-49",
+            "-48",
+            "-47",
+            "-46",
+            "-45",
+            "-44",
+            "-43",
+            "-42",
+            "-41",
+            "-40",
+            "-39",
+            "-38",
+            "-37",
+            "-36",
+            "-35",
+            "-34",
+            "-33",
+            "-32",
+            "-31",
+            "-30",
+            "-29",
+            "-28",
+            "-27",
+            "-26",
+            "-25",
+            "-24",
+            "-23",
+            "-22",
+            "-21",
+            "-20",
+            "-19",
+            "-18",
+            "-17",
+            "-16",
+            "-15",
+            "-14",
+            "-13",
+            "-12",
+            "-11",
             "-10",
             "-9",
             "-8",
@@ -1176,7 +1293,44 @@
             "96",
             "97",
             "98",
-            "99"});
+            "99",
+            "100",
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110",
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120",
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130",
+            "131",
+            "132",
+            "133",
+            "134",
+            "135",
+            "136"});
             this.low_temperature_cmBox.Location = new System.Drawing.Point(181, 28);
             this.low_temperature_cmBox.Name = "low_temperature_cmBox";
             this.low_temperature_cmBox.Size = new System.Drawing.Size(86, 28);
