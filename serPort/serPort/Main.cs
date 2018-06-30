@@ -126,8 +126,10 @@ namespace serPort
             }
 
             //Mitutoyo lables before BeginInvoke of Com Port
-           
             mitutoyo_1_actual_value_lbl.Text = "";
+
+            //Initialize Mitutoyo-1 Class variables
+            mitutoyo_1.initializeVariables();
 
             //Huber
             prepareDataForHuber();
@@ -204,7 +206,10 @@ namespace serPort
                 resolution2PrintExcelData = -2;  //-2 == no need
             }
 
+            //Huber
             decimal_part_of_target = 0;
+
+            //Huber
             huberReadWriteFlag = "sendSetPoint";
         }
 

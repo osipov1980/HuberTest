@@ -13,8 +13,7 @@ namespace serPort
 {
     public partial class Mitutoyo
     {
-        string InputData = String.Empty;                          /////////////////////////
-        //public string rate;                                     ///////////////////delete
+        string InputData = String.Empty;                          
         public float sto;                                         //initialized from Main (need refactoring)
         //public float str;
         public string mitutoyo_actual_value;
@@ -76,6 +75,17 @@ namespace serPort
                 //do nothing
                 //Mitutoyo1Port = null;
             }
+        }
+
+        //Initialize variables (called from Main)
+        public void initializeVariables()
+        {
+            mitutoyo_raw_value_lbl.Text = "";
+            mitutoyo_actual_value_lbl.Text = "";
+            sto_lbl.Text = "";
+            sto_height_captured_lbl.Text = "";
+            mitutoyo_actual_value = "";
+            mitutoyoValueForExcel = 0.0f;
         }
 
         //Start Read
