@@ -61,7 +61,7 @@ namespace serPort
             if (start_stop_btn.Text == "START")
             {
                 startStopBtnStyle("STOP");          //if flag == "STOP" (show the button as "STOP")
-                initialiseVariables();
+                initializeVariables();
                 //Read Settings of Com Ports from .txt file ("Settings")
                 initializeComPortsName();
                 huberStart();                      
@@ -102,7 +102,7 @@ namespace serPort
             }
         }
 
-        private void initialiseVariables()
+        private void initializeVariables()
         {
             reportName = project_name_txtBox.Text;
             checkType = check_type_cmBox.Text;
@@ -635,12 +635,12 @@ namespace serPort
             huberValueForExcel = float.Parse(temperature2Print);       //convert temperature to numeric for Excel
 
             //Str
-            //check if Str Lable is empty (if empty so Str is did not find yet)
+            //check if Str Label is empty (if empty so Str is did not find yet)
             if (str_lbl.Text == "")
             {
                 //check if Str is now
-                float temperature2Print_f = float.Parse(temperature2Print);  //convert txt value of actual temperature to float for compare with target temperature
-                if (temperature2Print_f >= str)
+                //convert value of temperature2Print to float for compare with Str temperature
+                if (float.Parse(temperature2Print) >= str)
                 {
                     //mitutoyo height value at the Str moment
                     str_lbl.Text = mitutoyo_1.mitutoyoValueForExcel.ToString();
