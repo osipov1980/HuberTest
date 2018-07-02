@@ -1,2 +1,11 @@
 Huber(Pilot ONE) ComPort: COM7
 Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10
+Mitutoyo1(ITN)   ComPort: COM10

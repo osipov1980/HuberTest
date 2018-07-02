@@ -46,6 +46,7 @@ namespace serPort
         int resolution2PrintExcelData;      //how many times to write data to Excel per minute
         int increasedRate;
         Mitutoyo mitutoyo_1 = new Mitutoyo();
+        Mitutoyo mitutoyo_2 = new Mitutoyo();
 
 
         public MainForm()
@@ -79,7 +80,7 @@ namespace serPort
                 mitutoyo_1.closePort(1);
                 huberStop();
                 HuberPort.Close();
-                saveCloseExcelWorkbook();                                         
+                saveCloseExcelWorkbook();
             }
         }
 
@@ -701,18 +702,21 @@ namespace serPort
         //Excel save workbook
         private void saveCloseExcelWorkbook()
         {
-            //save Sto value
-            actualSheet.Cells[2, 5] = "Sto at:";                                                                        
-            actualSheet.Cells[2, 6] = sto_lbl.Text;                                                                     
+            //Mitutoyo-1
+            //save Sto value                                                                        
+            actualSheet.Cells[4, 5] = sto_lbl.Text;                                                                     
+            //save Rate value                                                                        
+            actualSheet.Cells[5, 5] = rate;                                                                  
+            //save Str value                                                                         
+            actualSheet.Cells[6, 5] = str_lbl.Text;
 
-            //save Rate value
-            actualSheet.Cells[3, 5] = "Rate:";                                                                          
-            actualSheet.Cells[3, 6] = rate;                                                                  
-
-            //save Str value
-            actualSheet.Cells[4, 5] = "Str:";                                                                           
-            actualSheet.Cells[4, 6] = str_lbl.Text;                                                                     
-
+            //Mitutoyo-2
+            //save Sto value                                                                        
+            actualSheet.Cells[4, 11] = sto_lbl.Text;
+            //save Rate value                                                                        
+            actualSheet.Cells[5, 11] = rate;
+            //save Str value                                                                         
+            actualSheet.Cells[6, 11] = str_lbl.Text;
 
             //After write the content to the cell, next step is to save the excel file in your system
             string path = @"C:\serPort\Reports\" + reportName + ".xlsx";
