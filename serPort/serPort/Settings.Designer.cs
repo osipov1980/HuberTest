@@ -35,6 +35,9 @@
             this.update_huber_settings_btn = new System.Windows.Forms.Button();
             this.huber_txtBox = new System.Windows.Forms.TextBox();
             this.pilot_one_txt = new System.Windows.Forms.Label();
+            this.update_mitutoyo2_settings_btn = new System.Windows.Forms.Button();
+            this.mitutoyo2_txtBox = new System.Windows.Forms.TextBox();
+            this.itn_2_txt = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // itn_1_txt
@@ -106,12 +109,43 @@
             this.pilot_one_txt.TabIndex = 51;
             this.pilot_one_txt.Text = "Huber COM (2,3,4...15)";
             // 
+            // update_mitutoyo2_settings_btn
+            // 
+            this.update_mitutoyo2_settings_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.update_mitutoyo2_settings_btn.Location = new System.Drawing.Point(363, 123);
+            this.update_mitutoyo2_settings_btn.Name = "update_mitutoyo2_settings_btn";
+            this.update_mitutoyo2_settings_btn.Size = new System.Drawing.Size(92, 28);
+            this.update_mitutoyo2_settings_btn.TabIndex = 56;
+            this.update_mitutoyo2_settings_btn.Text = "Update";
+            this.update_mitutoyo2_settings_btn.UseVisualStyleBackColor = true;
+            // 
+            // mitutoyo2_txtBox
+            // 
+            this.mitutoyo2_txtBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.mitutoyo2_txtBox.Location = new System.Drawing.Point(249, 123);
+            this.mitutoyo2_txtBox.Name = "mitutoyo2_txtBox";
+            this.mitutoyo2_txtBox.Size = new System.Drawing.Size(104, 26);
+            this.mitutoyo2_txtBox.TabIndex = 55;
+            // 
+            // itn_2_txt
+            // 
+            this.itn_2_txt.AutoSize = true;
+            this.itn_2_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.itn_2_txt.Location = new System.Drawing.Point(37, 126);
+            this.itn_2_txt.Name = "itn_2_txt";
+            this.itn_2_txt.Size = new System.Drawing.Size(206, 20);
+            this.itn_2_txt.TabIndex = 54;
+            this.itn_2_txt.Text = "Mitutoyo -2 COM (2,3,4...15)";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(500, 262);
+            this.Controls.Add(this.update_mitutoyo2_settings_btn);
+            this.Controls.Add(this.mitutoyo2_txtBox);
+            this.Controls.Add(this.itn_2_txt);
             this.Controls.Add(this.update_huber_settings_btn);
             this.Controls.Add(this.huber_txtBox);
             this.Controls.Add(this.pilot_one_txt);
@@ -135,5 +169,8 @@
         private System.Windows.Forms.Button update_huber_settings_btn;
         private System.Windows.Forms.TextBox huber_txtBox;
         private System.Windows.Forms.Label pilot_one_txt;
+        private System.Windows.Forms.Button update_mitutoyo2_settings_btn;
+        private System.Windows.Forms.TextBox mitutoyo2_txtBox;
+        private System.Windows.Forms.Label itn_2_txt;
     }
 }

@@ -39,6 +39,15 @@ namespace serPort
             arrLine[line_to_edit - 1] = newText;
             File.WriteAllLines(path, arrLine);
         }
+
+        private void update_mitutoyo2_settings_btn_Click(object sender, EventArgs e)
+        {
+            string[] arrLine = File.ReadAllLines(path);
+            int line_to_edit = 3;
+            string newText = "Mitutoyo2(ITN)   ComPort: COM" + mitutoyo2_txtBox.Text;
+            arrLine[line_to_edit - 1] = newText;
+            File.WriteAllLines(path, arrLine);
+        }
     }
 }
 

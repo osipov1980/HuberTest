@@ -37,7 +37,7 @@ namespace serPort
         Excel.Workbooks excelWorkBook;
         Excel.Workbook excelSheet;
         Excel.Worksheet actualSheet;
-        Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();        
+        Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
         int ROW;
         int oneMinuteCounter;    //counter for Excel input data 1(time)/1(minute)
         int twoMinuteCounter;    //counter for Excel input data 1(time)/2(minute)
@@ -52,7 +52,7 @@ namespace serPort
         public MainForm()
         {
             InitializeComponent();
-            
+
             HuberPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(huberPort_DataReceived);
         }
 
@@ -65,12 +65,21 @@ namespace serPort
                 initializeVariables();
                 //Read Settings of Com Ports from .txt file ("Settings")
                 initializeComPortsName();
-                huberStart();                      
-                //Read first time height from Mitutoyo
-                mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
-                updateMitutoyoLables();                                        
+                huberStart();
+                if (indicators_cmBox.Text == "1")
+                {
+                    //Read first time height from Mitutoyo
+                    mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
+                }
+                else if (indicators_cmBox.Text == "2")
+                {
+                    //Read first time height from Mitutoyo
+                    mitutoyo_1.startReadMitutoyo();     //automatic open port in Class
+                    mitutoyo_2.startReadMitutoyo();     //automatic open port in Class
+                }
+                updateMitutoyoLables();
                 //Start reading data from Mitutoyo and Huber by timer
-                openExistingExcelTemplate();                                     
+                openExistingExcelTemplate();
                 readTimer.Start();
             }
             else
@@ -127,21 +136,45 @@ namespace serPort
             }
 
             //Mitutoyo lables before BeginInvoke of Com Port
-            mitutoyo_1_actual_value_lbl.Text = "";
+            if (indicators_cmBox.Text == "1")
+            {
+                mitutoyo_1_actual_value_lbl.Text = "";
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                mitutoyo_1_actual_value_lbl.Text = "";
+                mitutoyo_2_actual_value_lbl.Text = "";
+            }
 
-            //Initialize Mitutoyo-1 Class variables
-            mitutoyo_1.initializeVariables();
+            //Initialize Mitutoyo Class variables
+            if (indicators_cmBox.Text == "1")
+            {
+                mitutoyo_1.initializeVariables();
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                mitutoyo_1.initializeVariables();
+                mitutoyo_2.initializeVariables();
+            }
 
             //Huber
             prepareDataForHuber();
 
             //Mitutoyo Class variable - initialize Sto ("0.1" is defined as default value)
-            mitutoyo_1.sto = float.Parse(sto_cmBox.Text);
+            if (indicators_cmBox.Text == "1")
+            {
+                mitutoyo_1.sto = float.Parse(sto_cmBox.Text);
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                mitutoyo_1.sto = float.Parse(sto_cmBox.Text);
+                mitutoyo_2.sto = float.Parse(sto_cmBox.Text);
+            }
 
-            //Mitutoyo Class var - initialize Str
+            //initialize Str
             str = float.Parse(str_cmBox.Text);
 
-            //initialise Rate ("1" is defined as default value)
+            //initialize Sum of Program Running Ticks ("1" is defined as default value)
             if (rate_cmBox.Text == "1")
             {
                 if (check_type_cmBox.Text == "Full Test")
@@ -156,34 +189,37 @@ namespace serPort
                 { sumOfProgramRunningTicks = sumOfProgramRunningTicks * 2 * 2; }
             }
 
-            //initialise rate
+            //initialize rate
             rate = rate_cmBox.Text;
 
-            //initialise sto_lbl
+            //initialize sto_lbl
             sto_lbl.Text = "";
+            sto_2_lbl.Text = "";
 
-            //initialise str_lbl
+            //initialize str_lbl
             str_lbl.Text = "";
+            str_2_lbl.Text = "";
 
             //calculate sum of seconds to end
             secondsToEnd = sumOfProgramRunningTicks / 2;
 
-            //initialise flag for print time to left once per second
+            //initialize flag for print time to left once per second
             flagToPrintSecondsToEnd = 1;
 
-            //initialise flag for print temperature value to Real Data Control once per 10 second
+            //initialize flag for print temperature value to Real Data Control once per 10 second
             flagToPrintTemperatureToRealDataControl = 5;
 
-            //initialise every new run
+            //initialize Sto captured value
             sto_height_captured_lbl.Text = "";
+            sto_2_height_captured_lbl.Text = "";
 
             //Excel
             ROW = 1;
 
-            //initialise counter for first input data to Excel
+            //initialize counter for first input data to Excel
             oneMinuteCounter = 60;
 
-            //initialise counter for first input data to Excel
+            //initialize counter for first input data to Excel
             twoMinuteCounter = 120;
 
             //reset counter of Excel Real Time copies
@@ -207,7 +243,7 @@ namespace serPort
                 resolution2PrintExcelData = -2;  //-2 == no need
             }
 
-            //Huber
+            //Huber (ivisible value, for debuging use only)
             decimal_part_of_target = 0;
 
             //Huber
@@ -220,7 +256,7 @@ namespace serPort
             //Huber
             if (huberReadWriteFlag == "readActualTemperature")
             {
-                
+
                 huberReadTemperature();
                 huberReadWriteFlag = "sendSetPoint";
             }
@@ -229,7 +265,7 @@ namespace serPort
                 if (HuberPort.IsOpen == false) HuberPort.Open();
                 updateHuberTargetTemperature();
                 huberReadWriteFlag = "readActualTemperature";
-            }            
+            }
 
             //check if user changed data resolution
             if (resolution2PrintExcelData == -2)
@@ -248,17 +284,22 @@ namespace serPort
             {
                 //Write data to Excel workbook with increased intensity
                 //defined by user
-                writeData2ExcelWithIncreasedIntensity();                                      
+                writeData2ExcelWithIncreasedIntensity();
             }
 
-            //Read actual temperature
-            //huberReadTemperature();
-
             //Call function from Class - Read height from Mitutoyo
-            mitutoyo_1.startReadMitutoyo();
+            if (indicators_cmBox.Text == "1")
+            {
+                mitutoyo_1.startReadMitutoyo();
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                mitutoyo_1.startReadMitutoyo();
+                mitutoyo_2.startReadMitutoyo();
+            }
 
             //Mitutoyo update data
-            updateMitutoyoLables();                                                 ///////////////////new, see if need////////////////////////
+            updateMitutoyoLables();
 
             //Print seconds to end
             if (flagToPrintSecondsToEnd == 1)
@@ -274,7 +315,7 @@ namespace serPort
             //Stop running condition
             if (sumOfProgramRunningTicks == 0)
             {
-                label1.Text = "Now STOP";
+                hysteresis_lbl.Text = "Now STOP";
                 readTimer.Stop();
                 startStopBtnStyle("START");    //if flag == "START" (show the button as "START")  
                 saveCloseExcelWorkbook();
@@ -302,14 +343,14 @@ namespace serPort
                 {
                     if (sumOfProgramRunningTicks == upperCheckLimit)    //condition for printing upper limit line in Excel 
                     {
-                        writeData2Excel();                                       
-                        drawRedLimitForFullTestExcel();                          
-                        writeData2Excel();                                       
+                        writeData2Excel();
+                        drawRedLimitForFullTestExcel();
+                        writeData2Excel();
                         oneMinuteCounter = 0;      //reset value for next cycle
                     }
                     else
                     {
-                        writeData2Excel();                                        
+                        writeData2Excel();
                         oneMinuteCounter = 0;      //reset value for next cycle
                     }
                 }
@@ -318,7 +359,7 @@ namespace serPort
             {
                 if (oneMinuteCounter == 60)
                 {
-                    writeData2Excel();                                             
+                    writeData2Excel();
                     oneMinuteCounter = 0;      //reset value for next cycle
                 }
             }
@@ -373,8 +414,8 @@ namespace serPort
                     {
                         writeData2Excel();
                         increasedRate = 0;
-                    }                   
-                }               
+                    }
+                }
             }
             else if (checkType == "Only UP")
             {
@@ -396,16 +437,48 @@ namespace serPort
         //Mitutoyo
         private void updateMitutoyoLables()
         {
-            mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_actual_value;
-
-            if (mitutoyo_1.sto_lbl.Text != "")
+            if (indicators_cmBox.Text == "1")
             {
-                sto_lbl.Text = mitutoyo_1.sto_lbl.Text;
+                //Mitutoyo - 1
+                mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_actual_value;
+
+                if (mitutoyo_1.sto_lbl.Text != "")
+                {
+                    sto_lbl.Text = mitutoyo_1.sto_lbl.Text;
+                }
+
+                if (mitutoyo_1.sto_height_captured_lbl.Text != "")
+                {
+                    sto_height_captured_lbl.Text = mitutoyo_1.sto_height_captured_lbl.Text;
+                }
             }
-
-            if (mitutoyo_1.sto_height_captured_lbl.Text != "")
+            else if (indicators_cmBox.Text == "2")
             {
-                sto_height_captured_lbl.Text = mitutoyo_1.sto_height_captured_lbl.Text;
+                //Mitutoyo - 1
+                mitutoyo_1_actual_value_lbl.Text = mitutoyo_1.mitutoyo_actual_value;
+
+                if (mitutoyo_1.sto_lbl.Text != "")
+                {
+                    sto_lbl.Text = mitutoyo_1.sto_lbl.Text;
+                }
+
+                if (mitutoyo_1.sto_height_captured_lbl.Text != "")
+                {
+                    sto_height_captured_lbl.Text = mitutoyo_1.sto_height_captured_lbl.Text;
+                }
+
+                //Mitutoyo - 2
+                mitutoyo_2_actual_value_lbl.Text = mitutoyo_2.mitutoyo_actual_value;
+
+                if (mitutoyo_2.sto_lbl.Text != "")
+                {
+                    sto_2_lbl.Text = mitutoyo_2.sto_lbl.Text;
+                }
+
+                if (mitutoyo_2.sto_height_captured_lbl.Text != "")
+                {
+                    sto_2_height_captured_lbl.Text = mitutoyo_2.sto_height_captured_lbl.Text;
+                }
             }
         }
 
@@ -455,7 +528,7 @@ namespace serPort
                     else //checkType == "Full Test"
                     { }
                 }
-                
+
             }
             else  //rate_cmBox.Text == "2"
             {
@@ -467,7 +540,7 @@ namespace serPort
         private void huberSendNextTargetTemperatureRate1Up()
         {
             //values for adding to actual temperature
-            int[] add_to_next_target = {1,2,2};
+            int[] add_to_next_target = { 1, 2, 2 };
 
             if (oneMinuteCounter == 60)
             {
@@ -521,13 +594,13 @@ namespace serPort
                 HuberPort.DiscardOutBuffer();
             }
 
-            if (HuberPort.IsOpen) HuberPort.Write("{M00"+ increased_temperature + "\r\n");       //send SetPoint temperature to Huber for next second
+            if (HuberPort.IsOpen) HuberPort.Write("{M00" + increased_temperature + "\r\n");       //send SetPoint temperature to Huber for next second
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
             HuberPort.Close();
         }
 
         //Huber add zeros from left to final sending string
-        private string addZeros2HexNumberFromLeft (string increased_temperature)
+        private string addZeros2HexNumberFromLeft(string increased_temperature)
         {
             while (increased_temperature.Length < 4)
             {
@@ -644,30 +717,17 @@ namespace serPort
                 if (float.Parse(temperature2Print) >= str)
                 {
                     //mitutoyo height value at the Str moment
-                    str_lbl.Text = mitutoyo_1.mitutoyoValueForExcel.ToString();
+                    if (indicators_cmBox.Text == "1")
+                    {
+                        str_lbl.Text = mitutoyo_1.mitutoyoValueForExcel.ToString();
+                    }
+                    else if (indicators_cmBox.Text == "2")
+                    {
+                        str_lbl.Text = mitutoyo_1.mitutoyoValueForExcel.ToString();
+                        str_2_lbl.Text = mitutoyo_2.mitutoyoValueForExcel.ToString();
+                    }
                 }
             }
-        }
-
-        //Excel Create Temporary
-        private void create_temporary_xlxs_btn_Click(object sender, EventArgs e)
-        {
-            //save Sto value
-            actualSheet.Cells[2, 5] = "Sto at:";
-            actualSheet.Cells[2, 6] = sto_lbl.Text;
-
-            //save Rate value
-            actualSheet.Cells[3, 5] = "Rate:";
-            actualSheet.Cells[3, 6] = rate;
-
-            //save Str value
-            actualSheet.Cells[4, 5] = "Str:";
-            actualSheet.Cells[4, 6] = str_lbl.Text;
-
-            //After write the content to the cell, next step is to save the excel file in your system
-            string path = @"C:\serPort\Reports\" + reportName + "_Temporary_" + xlxsCopiesCounter  + ".xlsx";
-            excelSheet.SaveAs(path);
-            xlxsCopiesCounter++;
         }
 
         //Open Excel template file
@@ -687,7 +747,15 @@ namespace serPort
         {
             actualSheet.Cells[ROW, 1] = huberValueForExcel;           //A1  temperature/minute
             //convert only mitutoyo value to float
-            actualSheet.Cells[ROW, 2] = mitutoyo_1.mitutoyoValueForExcel;        //B1  mitutoyo height/minute   
+            if (indicators_cmBox.Text == "1")
+            {
+                actualSheet.Cells[ROW, 2] = mitutoyo_1.mitutoyoValueForExcel;        //B1  mitutoyo height/minute 
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                actualSheet.Cells[ROW, 2] = mitutoyo_1.mitutoyoValueForExcel;        //B1  mitutoyo height/minute 
+                actualSheet.Cells[ROW, 7] = mitutoyo_2.mitutoyoValueForExcel;        //G1  mitutoyo-2 height/minute 
+            }
             ROW++;
         }
 
@@ -699,30 +767,60 @@ namespace serPort
             ROW++;
         }
 
+        //Excel Create Temporary
+        private void create_temporary_xlxs_btn_Click(object sender, EventArgs e)
+        {
+            writeFinalData2ExcelTables();
+
+            //After write the content to the cell, next step is to save the excel file in your system
+            string path = @"C:\serPort\Reports\" + reportName + "_Temporary_" + xlxsCopiesCounter + ".xlsx";
+            excelSheet.SaveAs(path);
+            xlxsCopiesCounter++;
+        }
+
         //Excel save workbook
         private void saveCloseExcelWorkbook()
         {
-            //Mitutoyo-1
-            //save Sto value                                                                        
-            actualSheet.Cells[4, 5] = sto_lbl.Text;                                                                     
-            //save Rate value                                                                        
-            actualSheet.Cells[5, 5] = rate;                                                                  
-            //save Str value                                                                         
-            actualSheet.Cells[6, 5] = str_lbl.Text;
-
-            //Mitutoyo-2
-            //save Sto value                                                                        
-            actualSheet.Cells[4, 11] = sto_lbl.Text;
-            //save Rate value                                                                        
-            actualSheet.Cells[5, 11] = rate;
-            //save Str value                                                                         
-            actualSheet.Cells[6, 11] = str_lbl.Text;
+            writeFinalData2ExcelTables();
 
             //After write the content to the cell, next step is to save the excel file in your system
             string path = @"C:\serPort\Reports\" + reportName + ".xlsx";
             excelSheet.SaveAs(path);
             excelSheet.Close();
             excelApp.Quit();
+        }
+
+        //Excel write final values to tables before save
+        private void writeFinalData2ExcelTables()
+        {
+            if (indicators_cmBox.Text == "1")
+            {
+                //Mitutoyo-1
+                //save Sto value                                                                        
+                actualSheet.Cells[4, 5] = sto_lbl.Text;
+                //save Rate value                                                                        
+                actualSheet.Cells[5, 5] = rate;
+                //save Str value                                                                         
+                actualSheet.Cells[6, 5] = str_lbl.Text;
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                //Mitutoyo-1
+                //save Sto value                                                                        
+                actualSheet.Cells[4, 5] = sto_lbl.Text;
+                //save Rate value                                                                        
+                actualSheet.Cells[5, 5] = rate;
+                //save Str value                                                                         
+                actualSheet.Cells[6, 5] = str_lbl.Text;
+
+                //Mitutoyo-2
+                //save Sto value                                                                        
+                actualSheet.Cells[4, 10] = sto_2_lbl.Text;
+                //save Rate value                                                                        
+                actualSheet.Cells[5, 10] = rate;
+                //save Str value                                                                         
+                actualSheet.Cells[6, 10] = str_2_lbl.Text;
+            }
         }
 
         //Initialize Com Ports Name
@@ -747,8 +845,17 @@ namespace serPort
             HuberPort.Parity = Parity.None;
             HuberPort.StopBits = StopBits.One;
 
-            //Mitutoyo-1
-            mitutoyo_1.initializeComPortsName();
+            if (indicators_cmBox.Text == "1")
+            {  //Mitutoyo-1
+                mitutoyo_1.initializeComPortsName("1");
+            }
+            else if (indicators_cmBox.Text == "2")
+            {
+                //Mitutoyo-1
+                mitutoyo_1.initializeComPortsName("1");
+                //Mitutoyo-2
+                mitutoyo_2.initializeComPortsName("2");
+            }
         }
 
         //write data to Excel resolution
@@ -761,7 +868,7 @@ namespace serPort
                 case "1 time/min":
                     resolution2PrintExcelData = 60;   //60 seconds
                     break;
-                case "2 times/min":                   
+                case "2 times/min":
                     resolution2PrintExcelData = 30;   //30 seconds
                     break;
                 case "3 times/min":
@@ -782,7 +889,7 @@ namespace serPort
             }
 
             //increasedRate is dynamic (for increment), resolution2PrintExcelData is static (for compare)
-            increasedRate = resolution2PrintExcelData;   
+            increasedRate = resolution2PrintExcelData;
         }
 
         //Settings button
@@ -792,5 +899,5 @@ namespace serPort
             //HuberPort.Close();
             new Settings().Show();
         }
-    }        
+    }
 }

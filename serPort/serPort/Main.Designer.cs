@@ -39,7 +39,11 @@
             this.create_temporary_xlxs_btn = new System.Windows.Forms.Button();
             this.settings_btn = new System.Windows.Forms.Button();
             this.captured_values_groupBox = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.sto_2_height_captured_lbl = new System.Windows.Forms.Label();
+            this.str_2_lbl = new System.Windows.Forms.Label();
+            this.sto_2_lbl = new System.Windows.Forms.Label();
+            this.hysteresis_lbl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.str_max_lbl = new System.Windows.Forms.Label();
             this.str_lbl = new System.Windows.Forms.Label();
@@ -50,6 +54,8 @@
             this.str_mm_txt = new System.Windows.Forms.Label();
             this.sto_lbl = new System.Windows.Forms.Label();
             this.real_time_data_control_groupBox = new System.Windows.Forms.GroupBox();
+            this.mitutoyo_2_actual_value_lbl = new System.Windows.Forms.Label();
+            this.actual_mitutoyo_2_height_txt = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.time_to_end_sec_txt = new System.Windows.Forms.Label();
             this.mitutoyo_1_actual_value_lbl = new System.Windows.Forms.Label();
@@ -58,6 +64,8 @@
             this.actual_mitutoyo_1_height_txt = new System.Windows.Forms.Label();
             this.actual_tC_txt = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.indicators_txt = new System.Windows.Forms.Label();
+            this.indicators_cmBox = new System.Windows.Forms.ComboBox();
             this.data_resolution_txt = new System.Windows.Forms.Label();
             this.data_resolution_cmBox = new System.Windows.Forms.ComboBox();
             this.str_max_txt = new System.Windows.Forms.Label();
@@ -87,7 +95,7 @@
             // 
             this.start_stop_btn.BackColor = System.Drawing.Color.DarkTurquoise;
             this.start_stop_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.start_stop_btn.Location = new System.Drawing.Point(448, 521);
+            this.start_stop_btn.Location = new System.Drawing.Point(509, 522);
             this.start_stop_btn.Name = "start_stop_btn";
             this.start_stop_btn.Size = new System.Drawing.Size(190, 49);
             this.start_stop_btn.TabIndex = 6;
@@ -139,7 +147,7 @@
             this.create_temporary_xlxs_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.create_temporary_xlxs_btn.Image = ((System.Drawing.Image)(resources.GetObject("create_temporary_xlxs_btn.Image")));
             this.create_temporary_xlxs_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.create_temporary_xlxs_btn.Location = new System.Drawing.Point(468, 450);
+            this.create_temporary_xlxs_btn.Location = new System.Drawing.Point(529, 451);
             this.create_temporary_xlxs_btn.Name = "create_temporary_xlxs_btn";
             this.create_temporary_xlxs_btn.Size = new System.Drawing.Size(154, 32);
             this.create_temporary_xlxs_btn.TabIndex = 45;
@@ -151,7 +159,7 @@
             // settings_btn
             // 
             this.settings_btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.settings_btn.Location = new System.Drawing.Point(958, 35);
+            this.settings_btn.Location = new System.Drawing.Point(1014, 32);
             this.settings_btn.Name = "settings_btn";
             this.settings_btn.Size = new System.Drawing.Size(95, 32);
             this.settings_btn.TabIndex = 47;
@@ -161,7 +169,11 @@
             // 
             // captured_values_groupBox
             // 
-            this.captured_values_groupBox.Controls.Add(this.label1);
+            this.captured_values_groupBox.Controls.Add(this.label4);
+            this.captured_values_groupBox.Controls.Add(this.sto_2_height_captured_lbl);
+            this.captured_values_groupBox.Controls.Add(this.str_2_lbl);
+            this.captured_values_groupBox.Controls.Add(this.sto_2_lbl);
+            this.captured_values_groupBox.Controls.Add(this.hysteresis_lbl);
             this.captured_values_groupBox.Controls.Add(this.label2);
             this.captured_values_groupBox.Controls.Add(this.str_max_lbl);
             this.captured_values_groupBox.Controls.Add(this.str_lbl);
@@ -175,21 +187,65 @@
             this.captured_values_groupBox.ForeColor = System.Drawing.Color.GhostWhite;
             this.captured_values_groupBox.Location = new System.Drawing.Point(26, 99);
             this.captured_values_groupBox.Name = "captured_values_groupBox";
-            this.captured_values_groupBox.Size = new System.Drawing.Size(340, 414);
+            this.captured_values_groupBox.Size = new System.Drawing.Size(436, 471);
             this.captured_values_groupBox.TabIndex = 48;
             this.captured_values_groupBox.TabStop = false;
             this.captured_values_groupBox.Text = "Captured Values";
             // 
-            // label1
+            // label4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(222, 156);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "Hysteresis";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(312, 156);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 20);
+            this.label4.TabIndex = 57;
+            this.label4.Text = "Hysteresis";
+            // 
+            // sto_2_height_captured_lbl
+            // 
+            this.sto_2_height_captured_lbl.AutoSize = true;
+            this.sto_2_height_captured_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.sto_2_height_captured_lbl.ForeColor = System.Drawing.Color.Red;
+            this.sto_2_height_captured_lbl.Location = new System.Drawing.Point(312, 49);
+            this.sto_2_height_captured_lbl.Name = "sto_2_height_captured_lbl";
+            this.sto_2_height_captured_lbl.Size = new System.Drawing.Size(85, 20);
+            this.sto_2_height_captured_lbl.TabIndex = 56;
+            this.sto_2_height_captured_lbl.Text = "Sto Height";
+            // 
+            // str_2_lbl
+            // 
+            this.str_2_lbl.AutoSize = true;
+            this.str_2_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.str_2_lbl.ForeColor = System.Drawing.Color.Red;
+            this.str_2_lbl.Location = new System.Drawing.Point(272, 99);
+            this.str_2_lbl.Name = "str_2_lbl";
+            this.str_2_lbl.Size = new System.Drawing.Size(30, 20);
+            this.str_2_lbl.TabIndex = 55;
+            this.str_2_lbl.Text = "Str";
+            // 
+            // sto_2_lbl
+            // 
+            this.sto_2_lbl.AutoSize = true;
+            this.sto_2_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.sto_2_lbl.ForeColor = System.Drawing.Color.Red;
+            this.sto_2_lbl.Location = new System.Drawing.Point(272, 72);
+            this.sto_2_lbl.Name = "sto_2_lbl";
+            this.sto_2_lbl.Size = new System.Drawing.Size(34, 20);
+            this.sto_2_lbl.TabIndex = 54;
+            this.sto_2_lbl.Text = "Sto";
+            // 
+            // hysteresis_lbl
+            // 
+            this.hysteresis_lbl.AutoSize = true;
+            this.hysteresis_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.hysteresis_lbl.ForeColor = System.Drawing.Color.Red;
+            this.hysteresis_lbl.Location = new System.Drawing.Point(222, 156);
+            this.hysteresis_lbl.Name = "hysteresis_lbl";
+            this.hysteresis_lbl.Size = new System.Drawing.Size(83, 20);
+            this.hysteresis_lbl.TabIndex = 53;
+            this.hysteresis_lbl.Text = "Hysteresis";
             // 
             // label2
             // 
@@ -292,6 +348,8 @@
             // 
             // real_time_data_control_groupBox
             // 
+            this.real_time_data_control_groupBox.Controls.Add(this.mitutoyo_2_actual_value_lbl);
+            this.real_time_data_control_groupBox.Controls.Add(this.actual_mitutoyo_2_height_txt);
             this.real_time_data_control_groupBox.Controls.Add(this.label3);
             this.real_time_data_control_groupBox.Controls.Add(this.time_to_end_sec_txt);
             this.real_time_data_control_groupBox.Controls.Add(this.mitutoyo_1_actual_value_lbl);
@@ -301,12 +359,34 @@
             this.real_time_data_control_groupBox.Controls.Add(this.actual_tC_txt);
             this.real_time_data_control_groupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.real_time_data_control_groupBox.ForeColor = System.Drawing.Color.GhostWhite;
-            this.real_time_data_control_groupBox.Location = new System.Drawing.Point(396, 99);
+            this.real_time_data_control_groupBox.Location = new System.Drawing.Point(468, 99);
             this.real_time_data_control_groupBox.Name = "real_time_data_control_groupBox";
             this.real_time_data_control_groupBox.Size = new System.Drawing.Size(292, 334);
             this.real_time_data_control_groupBox.TabIndex = 49;
             this.real_time_data_control_groupBox.TabStop = false;
             this.real_time_data_control_groupBox.Text = "Real Time Data Control";
+            // 
+            // mitutoyo_2_actual_value_lbl
+            // 
+            this.mitutoyo_2_actual_value_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.mitutoyo_2_actual_value_lbl.ForeColor = System.Drawing.Color.Red;
+            this.mitutoyo_2_actual_value_lbl.Location = new System.Drawing.Point(94, 289);
+            this.mitutoyo_2_actual_value_lbl.Name = "mitutoyo_2_actual_value_lbl";
+            this.mitutoyo_2_actual_value_lbl.Size = new System.Drawing.Size(87, 30);
+            this.mitutoyo_2_actual_value_lbl.TabIndex = 48;
+            this.mitutoyo_2_actual_value_lbl.Text = "loading...";
+            this.mitutoyo_2_actual_value_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // actual_mitutoyo_2_height_txt
+            // 
+            this.actual_mitutoyo_2_height_txt.AutoSize = true;
+            this.actual_mitutoyo_2_height_txt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.actual_mitutoyo_2_height_txt.Location = new System.Drawing.Point(48, 261);
+            this.actual_mitutoyo_2_height_txt.Name = "actual_mitutoyo_2_height_txt";
+            this.actual_mitutoyo_2_height_txt.Size = new System.Drawing.Size(227, 20);
+            this.actual_mitutoyo_2_height_txt.TabIndex = 49;
+            this.actual_mitutoyo_2_height_txt.Text = "Actual  Mitutoyo-1 Height (mm)";
+            this.actual_mitutoyo_2_height_txt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -390,6 +470,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.indicators_txt);
+            this.groupBox1.Controls.Add(this.indicators_cmBox);
             this.groupBox1.Controls.Add(this.data_resolution_txt);
             this.groupBox1.Controls.Add(this.data_resolution_cmBox);
             this.groupBox1.Controls.Add(this.str_max_txt);
@@ -410,12 +492,45 @@
             this.groupBox1.Controls.Add(this.low_temperature_cmBox);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.groupBox1.ForeColor = System.Drawing.Color.GhostWhite;
-            this.groupBox1.Location = new System.Drawing.Point(715, 99);
+            this.groupBox1.Location = new System.Drawing.Point(771, 99);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(338, 414);
+            this.groupBox1.Size = new System.Drawing.Size(338, 471);
             this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set Up Data";
+            // 
+            // indicators_txt
+            // 
+            this.indicators_txt.AutoSize = true;
+            this.indicators_txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.indicators_txt.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.indicators_txt.Location = new System.Drawing.Point(86, 398);
+            this.indicators_txt.Name = "indicators_txt";
+            this.indicators_txt.Size = new System.Drawing.Size(79, 20);
+            this.indicators_txt.TabIndex = 56;
+            this.indicators_txt.Text = "Indicators";
+            // 
+            // indicators_cmBox
+            // 
+            this.indicators_cmBox.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.indicators_cmBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.indicators_cmBox.FormattingEnabled = true;
+            this.indicators_cmBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.indicators_cmBox.Location = new System.Drawing.Point(181, 395);
+            this.indicators_cmBox.Name = "indicators_cmBox";
+            this.indicators_cmBox.Size = new System.Drawing.Size(86, 28);
+            this.indicators_cmBox.TabIndex = 55;
+            this.indicators_cmBox.Text = "1";
             // 
             // data_resolution_txt
             // 
@@ -1364,7 +1479,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(1087, 594);
+            this.ClientSize = new System.Drawing.Size(1151, 594);
             this.Controls.Add(this.huber_hex_value_lbl);
             this.Controls.Add(this.huber_dec_value_lbl);
             this.Controls.Add(this.groupBox1);
@@ -1377,7 +1492,7 @@
             this.Controls.Add(this.mitutoyo_1_raw_value_lbl);
             this.Controls.Add(this.start_stop_btn);
             this.Name = "MainForm";
-            this.Text = "Main";
+            this.Text = "Version  0.2.01 (Alpha) - Two Indicators & Only UP (Rate 1)";
             this.captured_values_groupBox.ResumeLayout(false);
             this.captured_values_groupBox.PerformLayout();
             this.real_time_data_control_groupBox.ResumeLayout(false);
@@ -1398,7 +1513,7 @@
         private System.Windows.Forms.Button create_temporary_xlxs_btn;
         private System.Windows.Forms.Button settings_btn;
         private System.Windows.Forms.GroupBox captured_values_groupBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label hysteresis_lbl;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label str_max_lbl;
         private System.Windows.Forms.Label str_lbl;
@@ -1438,6 +1553,14 @@
         public System.Windows.Forms.Label sto_height_captured_lbl;
         public System.Windows.Forms.Label sto_lbl;
         public System.Windows.Forms.Label mitutoyo_1_actual_value_lbl;
+        private System.Windows.Forms.Label indicators_txt;
+        private System.Windows.Forms.ComboBox indicators_cmBox;
+        public System.Windows.Forms.Label mitutoyo_2_actual_value_lbl;
+        private System.Windows.Forms.Label actual_mitutoyo_2_height_txt;
+        public System.Windows.Forms.Label sto_2_lbl;
+        private System.Windows.Forms.Label str_2_lbl;
+        public System.Windows.Forms.Label sto_2_height_captured_lbl;
+        private System.Windows.Forms.Label label4;
     }
 }
 

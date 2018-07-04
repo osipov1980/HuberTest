@@ -13,35 +13,35 @@ namespace serPort
 {
     public partial class Mitutoyo
     {
-        string InputData = String.Empty;                          
+        string InputData = String.Empty;
         public float sto;                                         //initialized from Main (need refactoring)
         //public float str;
         public string mitutoyo_actual_value;
         //for BeginInvoke Method in "startReadMitutoyo()"
         Form newForm = new Form();
-        Label mitutoyo_raw_value_lbl = new Label(); 
+        Label mitutoyo_raw_value_lbl = new Label();
         public Label mitutoyo_actual_value_lbl = new Label();
         public Label sto_lbl = new Label();
         public Label sto_height_captured_lbl = new Label();
         public float mitutoyoValueForExcel;
 
-        SerialPort Mitutoyo1Port = new SerialPort();
+        SerialPort MitutoyoPort = new SerialPort();
         public delegate void SetTextCallback(string text);
 
         //Constructor
         public Mitutoyo()
-        {                  
+        {
             mitutoyo_raw_value_lbl.Text = "";
             newForm.Controls.Add(mitutoyo_raw_value_lbl);
-            
+
             mitutoyo_actual_value_lbl.Text = "";
             mitutoyo_actual_value_lbl.Top = 25;   //20 pixels down from the previous label
             newForm.Controls.Add(mitutoyo_actual_value_lbl);
-            
+
             sto_lbl.Text = "";
             sto_lbl.Top = 50;
             newForm.Controls.Add(sto_lbl);
-            
+
             sto_height_captured_lbl.Text = "";
             sto_height_captured_lbl.Top = 70;
             newForm.Controls.Add(sto_height_captured_lbl);
@@ -49,31 +49,33 @@ namespace serPort
             newForm.Show();
             newForm.Visible = false;
 
-            Mitutoyo1Port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(port_DataReceived);
+            MitutoyoPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(port_DataReceived);
         }
 
         //Initialize Com Ports Name
-        public void initializeComPortsName()
+        public void initializeComPortsName(string indicatorNum)
         {
             try
             {
                 //initialize Mitutoyo1 Port             
                 string path = @"C:\serPort\Settings.txt";
-                string newPortName = "";               
-                int line_to_edit = 2;
+                string newPortName = "";
+                //position of Mitutoyo Com Ports in "Settings" file starts at line 2,
+                //so if need to initialize Mitutoyo 1 => go to indicatorNum + 1 (line 2 in "settings")
+                int line_to_edit = (Int32.Parse(indicatorNum) + 1);
                 string[] arrLine = File.ReadAllLines(path);
                 newPortName = arrLine[line_to_edit - 1];
                 newPortName = newPortName.Remove(0, 26);
-                Mitutoyo1Port.PortName = newPortName;
-                Mitutoyo1Port.BaudRate = 9600;
-                Mitutoyo1Port.DataBits = 8;
-                Mitutoyo1Port.Parity = Parity.None;
-                Mitutoyo1Port.StopBits = StopBits.One;
+                MitutoyoPort.PortName = newPortName;
+                MitutoyoPort.BaudRate = 9600;
+                MitutoyoPort.DataBits = 8;
+                MitutoyoPort.Parity = Parity.None;
+                MitutoyoPort.StopBits = StopBits.One;
             }
             catch (Exception ex)
             {
                 //do nothing
-                //Mitutoyo1Port = null;
+                //MitutoyoPort = null;
             }
         }
 
@@ -91,30 +93,30 @@ namespace serPort
         //Start Read
         public void startReadMitutoyo()
         {
-            if (Mitutoyo1Port.IsOpen == false)
+            if (MitutoyoPort.IsOpen == false)
             {
-                Mitutoyo1Port.Open();
+                MitutoyoPort.Open();
             }
             //Clean the buffer before read data
-            if (Mitutoyo1Port.BytesToRead > 0)
+            if (MitutoyoPort.BytesToRead > 0)
             {
-                Mitutoyo1Port.DiscardInBuffer();
-                Mitutoyo1Port.DiscardOutBuffer();
-                //Mitutoyo1Port.ReadExisting();  ------>   another option by Sharon to clean the buffer
+                MitutoyoPort.DiscardInBuffer();
+                MitutoyoPort.DiscardOutBuffer();
+                //MitutoyoPort.ReadExisting();  ------>   another option by Sharon to clean the buffer
             }
             mitutoyo_raw_value_lbl.Text = "";
             mitutoyo_actual_value_lbl.Text = "";
 
-            if (Mitutoyo1Port.IsOpen) Mitutoyo1Port.WriteLine("1\r\n");
+            if (MitutoyoPort.IsOpen) MitutoyoPort.WriteLine("1\r\n");
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            InputData = Mitutoyo1Port.ReadExisting();
+            InputData = MitutoyoPort.ReadExisting();
             //refresh the rawData
             if (InputData != String.Empty)
-                mitutoyo_raw_value_lbl.BeginInvoke(new SetTextCallback(SetText), new object[] { InputData });            
+                mitutoyo_raw_value_lbl.BeginInvoke(new SetTextCallback(SetText), new object[] { InputData });
         }
 
         public void SetText(string value)
@@ -147,13 +149,13 @@ namespace serPort
             switch (mitutoyo_number)
             {
                 case 1:
-                    Mitutoyo1Port.Close();   //Mitutoyo 1
+                    MitutoyoPort.Close();   //Mitutoyo 1
                     break;
                 case 2:
                     //Mitutoyo2Port.Close();   //Mitutoyo 2
                     break;
                 default:
-                    Mitutoyo1Port.Close();  //Default value close Mitutoyo 1 Com Port
+                    MitutoyoPort.Close();  //Default value close Mitutoyo 1 Com Port
                     break;
             }
         }
