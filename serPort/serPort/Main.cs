@@ -1,4 +1,7 @@
-﻿using System;
+﻿//GUI design changed
+//Reports button added (open reports folder)
+//Huber send next temperature bug fixed (temporary, need code refactoring)
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,6 +11,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Office.Interop;                 //For Excel
 using Excel = Microsoft.Office.Interop.Excel;   //For Excel
 using System.IO;                                //for read/write txt file
+using System.Diagnostics;
 
 
 namespace serPort
@@ -247,6 +251,7 @@ namespace serPort
             decimal_part_of_target = 0;
 
             //Huber
+            decimal_part_of_target = 0;
             huberReadWriteFlag = "sendSetPoint";
         }
 
@@ -547,7 +552,7 @@ namespace serPort
                 //add first value after increment the left side of temperature (example: 43 to 44.00) => 44.02 (first value .02 is added)
                 decimal_part_of_target += 2;
             }
-            else if (oneMinuteCounter == 59)
+            else if (decimal_part_of_target >= 98)
             {
                 //add last value before increment the left side of temperature (example: 43 to 44.00) => 43.98 (last value .02 is added)
                 decimal_part_of_target = 0;
@@ -568,7 +573,7 @@ namespace serPort
             //some_label.Text = decimal_part_of_target.ToString();     
             if (decimal_part_of_target == 0)
             {
-                increased_temperature = low_temperature_increased.ToString() + "00";
+                increased_temperature = low_temperature_increased.ToString() + "00";  //Example: 3198 => 3200 9998 
             }
             else if (decimal_part_of_target < 10)
             {
@@ -618,7 +623,7 @@ namespace serPort
                 HuberPort.DiscardInBuffer();
                 HuberPort.DiscardOutBuffer();
             }
-            huber_raw_value_lbl.Text = "";
+            huber_stop_temperature_lbl.Text = "";
 
             if (HuberPort.IsOpen) HuberPort.Write("{M01****\r\n");       //read actual temperature from Huber
             else MessageBox.Show("Serial port is closed!", "RS232 tester", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -635,8 +640,8 @@ namespace serPort
         //Huber
         private void SetTextHuber(string value)
         {
-            huber_raw_value_lbl.Text += value;                     //put data into lable before copy to temporary variable    
-            string rawData = huber_raw_value_lbl.Text;             //copy text from lable for next operation
+            huber_stop_temperature_lbl.Text += value;                     //put data into lable before copy to temporary variable    
+            string rawData = huber_stop_temperature_lbl.Text;             //copy text from lable for next operation
             rawData = rawData.Remove(0, 4);                        //cut first 4 symbols from left 
             int temperature = int.Parse(rawData, System.Globalization.NumberStyles.HexNumber);   //convert string that contains HEX value to Int32
             temperature2Print = temperature.ToString();     //convert integer value to string
@@ -767,8 +772,8 @@ namespace serPort
             ROW++;
         }
 
-        //Excel Create Temporary
-        private void create_temporary_xlxs_btn_Click(object sender, EventArgs e)
+        //Excel Create Actual xlxs
+        private void create_actual_xlxs_btn_Click(object sender, EventArgs e)
         {
             writeFinalData2ExcelTables();
 
@@ -892,12 +897,17 @@ namespace serPort
             increasedRate = resolution2PrintExcelData;
         }
 
-        //Settings button
-        private void settings_btn_Click(object sender, EventArgs e)
+        //Settings button      
+        private void settings_btn_Click_1(object sender, EventArgs e)
         {
             //mitutoyo_1.closePort(1);
             //HuberPort.Close();
             new Settings().Show();
+        }
+
+        private void open_reports_folder_btn_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"C:\serPort\Reports");
         }
     }
 }
