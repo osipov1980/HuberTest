@@ -1,11 +1,11 @@
-Huber(Pilot ONE) ComPort: COM7
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM8
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
-Mitutoyo1(ITN)   ComPort: COM10
+Huber(Pilot ONE) ComPort: COM4
+Mitutoyo1(ITN)   ComPort: COM14
+Mitutoyo2(ITN)   ComPort: COM7
+Mitutoyo3(ITN)   ComPort: COM14
+Mitutoyo4(ITN)   ComPort: COM
+Mitutoyo5(ITN)   ComPort: COM10
+Mitutoyo6(ITN)   ComPort: COM10
+Mitutoyo7(ITN)   ComPort: COM10
+Mitutoyo8(ITN)   ComPort: COM10
+Mitutoyo9(ITN)   ComPort: COM10
+Huber ID: 305

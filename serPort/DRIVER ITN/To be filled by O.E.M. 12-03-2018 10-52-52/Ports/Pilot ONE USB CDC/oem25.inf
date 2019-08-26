@@ -1,0 +1,57 @@
+; For 32 and 64 bit Windows from XP to Windows 7.
+
+[Version]
+Signature="$Windows NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%PROVIDER%
+;CatalogFile=GSerial.cat
+DriverVer=04/17/2012,0.0.1
+
+[SourceDisksNames]
+1=%DRV_DISK%,,,
+
+[SourceDisksFiles]
+
+[Manufacturer]
+%COMPANY_NAME%=PilotONEDevice,NT,NTamd64,NTia64
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[PilotONEDevice.NT]
+%DESCRIPTION%=DriverInstall,USB\VID_2675&PID_0002
+
+[PilotONEDevice.NTamd64]
+%DESCRIPTION%=DriverInstall,USB\VID_2675&PID_0002
+
+[PilotONEDevice.NTia64]
+%DESCRIPTION%=DriverInstall,USB\VID_2675&PID_0002
+
+[DriverInstall.NT]
+Include=mdmcpq.inf
+CopyFiles=FakeModemCopyFileSection
+AddReg=DriverInstall.NT.AddReg
+
+[DriverInstall.NT.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbser.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[DriverInstall.NT.Services]
+AddService=usbser, 0x00000002, DriverServiceInst
+
+[DriverServiceInst]
+DisplayName=%SERV%
+ServiceType = 1 ; SERVICE_KERNEL_DRIVER
+StartType = 3 ; SERVICE_DEMAND_START
+ErrorControl = 1 ; SERVICE_ERROR_NORMAL
+ServiceBinary= %12%\usbser.sys
+LoadOrderGroup = Base
+
+[Strings]
+PROVIDER = "Peter Huber Kältemaschinenbau GmbH"
+COMPANY_NAME = "Peter Huber Kältemaschinenbau GmbH"
+DESCRIPTION = "Pilot ONE USB CDC"
+SERV = "Pilot ONE USB CDC driver"
+DRV_DISK = "Pilot ONE Drivers Disk"

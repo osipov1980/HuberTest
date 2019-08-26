@@ -1,0 +1,107 @@
+;
+; USB-ITN.inf
+; Install information file for USB-ITN
+;
+
+;--------- Version Section ---------------------------------------------------
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Ports
+ClassGUID={4d36e978-e325-11ce-bfc1-08002be10318}
+Provider=%Provider%
+DriverVer=11/29/2011,2.0.0.0
+CatalogFile=USB-ITN.cat
+
+
+;--------- DestinationDirs Section -------------------------------------------
+
+[DestinationDirs]
+DefaultDestDir = 10
+ITVCP_Files_Driver = 12
+ITVCP_Files_Driver64 = 12
+
+[ITVCP_Files_Driver]
+ITVCP.sys
+
+[ITVCP_Files_Driver64]
+ITVCP64.sys
+
+
+;--------- SourceDiskNames and SourceDiskFiles Section -----------------------
+
+[SourceDisksNames]
+1 = %DiskId%,,,""
+
+[SourceDisksFiles]
+ITVCP.sys  = 1
+
+[SourceDisksFiles.amd64]
+ITVCP64.sys  = 1
+
+
+;--------- Manufacturer and Models Sections ----------------------------------
+
+[Manufacturer]
+%MfgName% = ITVCP_Mfg, NTamd64
+
+[ITVCP_Mfg]
+%ITVCP_DeviceDesc%=ITVCP_DDI, USB\VID_0FE7&PID_4001
+
+[ITVCP_Mfg.NTamd64]
+%ITVCP_DeviceDesc%=ITVCP_DDI.NTamd64, USB\VID_0FE7&PID_4001
+
+
+;---------- DDInstall Sections -----------------------------------------------
+
+[ITVCP_DDI]
+CopyFiles=ITVCP_Files_Driver
+AddReg=ITVCP_9X_AddReg
+
+[ITVCP_9X_AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,ITVCP.sys
+HKR,,Description,,%ITVCP_DeviceDesc%
+
+[ITVCP_DDI.NT]
+CopyFiles=ITVCP_Files_Driver
+AddReg=ITVCP_NT_AddReg
+
+[ITVCP_DDI.NTamd64]
+CopyFiles=ITVCP_Files_Driver64
+
+[ITVCP_DDI.NT.Services]
+Addservice = ITVCP, 0x00000002, ITVCP_Service
+
+[ITVCP_DDI.NTamd64.Services]
+Addservice = ITVCP, 0x00000002, ITVCP_Service64
+
+
+; --------- Service ----------------------
+
+[ITVCP_Service]
+DisplayName    = %ITVCP_SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\ITVCP.sys
+LoadOrderGroup = Extended Base
+
+[ITVCP_Service64]
+DisplayName    = %ITVCP_SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\ITVCP64.sys
+LoadOrderGroup = Extended Base
+
+
+;--------- Strings Section ---------------------------------------------------
+
+[Strings]
+Provider = "Mitutoyo"
+MfgName = "Mitutoyo"
+ITVCP_DeviceDesc = "USB-ITN"
+ITVCP_SvcDesc = "VCP Driver for USB-ITN"
+DiskId = "Device Installation Disk"
+

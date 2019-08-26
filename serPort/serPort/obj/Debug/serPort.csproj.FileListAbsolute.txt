@@ -8,7 +8,6 @@ C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\se
 C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.pdb
 C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.MainForm.resources
 C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csproj.ResolveComReference.cache
-C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csprojResolveAssemblyReference.cache
 C:\serPort\serPort\bin\Debug\serPort.exe.config
 C:\serPort\serPort\bin\Debug\serPort.exe
 C:\serPort\serPort\bin\Debug\serPort.pdb
@@ -20,4 +19,28 @@ C:\serPort\serPort\obj\Debug\serPort.csproj.GenerateResource.cache
 C:\serPort\serPort\obj\Debug\serPort.csproj.CoreCompileInputs.cache
 C:\serPort\serPort\obj\Debug\serPort.exe
 C:\serPort\serPort\obj\Debug\serPort.pdb
+C:\Users\User\Desktop\serPort\serPort\bin\Debug\serPort.exe.config
+C:\Users\User\Desktop\serPort\serPort\bin\Debug\serPort.exe
+C:\Users\User\Desktop\serPort\serPort\bin\Debug\serPort.pdb
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.Chart_1.resources
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.MainForm.resources
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.Properties.Resources.resources
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.Settings.resources
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.csproj.GenerateResource.cache
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.exe
+C:\Users\User\Desktop\serPort\serPort\obj\Debug\serPort.pdb
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.Chart_1.resources
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.Settings.resources
+C:\Users\igor\Documents\Visual Studio 2017\Projects\serPort\serPort\obj\Debug\serPort.csprojAssemblyReference.cache
+C:\serPort\serPort\obj\Debug\serPort.Chart.resources
+C:\serPort\serPort\obj\Debug\serPort.WaitToEnd.resources
+C:\serPort\serPort\obj\Debug\serPort.UserTemplate.resources
+C:\serPort\serPort\bin\Debug\Newtonsoft.Json.dll
+C:\serPort\serPort\bin\Debug\Newtonsoft.Json.xml
+C:\serPort\serPort\obj\Debug\serPort.csproj.CopyComplete
+C:\serPort\serPort\obj\Debug\serPort.Build_Segments.resources
+C:\serPort\serPort\obj\Debug\serPort.IGIChart.resources
 C:\serPort\serPort\obj\Debug\serPort.csprojAssemblyReference.cache
